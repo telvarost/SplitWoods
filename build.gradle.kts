@@ -1,23 +1,27 @@
 import java.nio.charset.Charset
 
 plugins {
-    id("fabric-loom") version "1.7.2"
-    id("babric-loom-extension") version "1.7.4"
     id("maven-publish")
+    id("fabric-loom") version "1.9.2"
+    id("babric-loom-extension") version "1.9.4"
     id("com.modrinth.minotaur") version "2.+"
 }
-
 
 val maven_group: String by project
 val minecraft_version: String by project
 val yarn_mappings: String by project
 val loader_version: String by project
 val stapi_version: String by project
+val stapi_fast_intro_version: String by project
+val glass_networking_version: String by project
 val gcapi_version: String by project
+val retrocommands_version: String by project
+val bhcreative_version: String by project
 val ami_version: String by project
+val spawneggs_version: String by project
 val modmenu_version: String by project
 val archives_base_name: String by project
-val next_version: String by project
+val mod_version: String by project
 val artifact_id: String by project
 val api_version: String by project
 
@@ -37,7 +41,7 @@ java {
 }
 
 group = maven_group
-version = next_version
+version = mod_version
 
 if (!releasing) {
     version = "${version}-SNAPSHOT"
@@ -62,6 +66,7 @@ repositories {
         name = "Babric"
         url = uri("https://maven.glass-launcher.net/babric")
     }
+
     // Used for mappings.
     maven {
         name = "Glass Releases"
@@ -86,6 +91,12 @@ repositories {
         url = uri("https://maven.minecraftforge.net/")
     }
 
+    // Used for SpawnEggs
+    maven {
+        name = "NyaRepo"
+        url = uri("https://maven.fildand.cz/releases")
+    }
+
     maven {
         name = "Modrinth"
         url = uri("https://api.modrinth.com/maven")
@@ -97,26 +108,47 @@ repositories {
 dependencies {
     minecraft("com.mojang:minecraft:${minecraft_version}")
     mappings("net.glasslauncher:biny:${yarn_mappings}:v2")
-    modImplementation("babric:fabric-loader:${loader_version}")
+    modImplementation("net.fabricmc:fabric-loader:${loader_version}")
 
     implementation("org.slf4j:slf4j-api:1.8.0-beta4")
     implementation("org.apache.logging.log4j:log4j-slf4j18-impl:2.17.2")
     implementation("blue.endless:jankson:1.2.1")
-
-    modImplementation("net.modificationstation:StationAPI:${stapi_version}")
+    implementation("me.carleslc:Simple-Yaml:1.8.4")
 
     // Optional, but convenient mods for mod creators and users alike.
-    modImplementation("com.github.calmilamsy:ModMenu:${modmenu_version}") {
+    modImplementation("net.glasslauncher.mods:ModMenu:${modmenu_version}") {
         isTransitive = false
     }
-    modImplementation("net.glasslauncher.mods:glass-networking:1.0.2") {
+
+    modImplementation("net.glasslauncher.mods:glass-networking:${glass_networking_version}") {
         isTransitive = false
     }
-    implementation("me.carleslc:Simple-Yaml:1.8.4")
-    modImplementation("net.glasslauncher.mods:GlassConfigAPI:3.0.0") {
+
+    modImplementation("net.glasslauncher.mods:GlassConfigAPI:${gcapi_version}") {
         isTransitive = false
     }
+
+    modImplementation("maven.modrinth:retrocommands:${retrocommands_version}") {
+        isTransitive = false
+    }
+
+    // StationAPI dependency
+    modImplementation("net.modificationstation:StationAPI:${stapi_version}")
+
+    // StationAPI development mods
+    modRuntimeOnly ("maven.modrinth:fast-stapi-intro:${stapi_fast_intro_version}") {
+        isTransitive = false
+    }
+
+    modImplementation("com.github.paulevsGitch:BHCreative:${bhcreative_version}"){
+        isTransitive = false
+    }
+
     modImplementation("net.glasslauncher.mods:AlwaysMoreItems:${ami_version}") {
+        isTransitive = false
+    }
+
+    modImplementation("net.danygames2014:spawneggs:${spawneggs_version}") {
         isTransitive = false
     }
 }

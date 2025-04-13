@@ -7,18 +7,27 @@ import net.minecraft.item.ItemStack;
 import net.modificationstation.stationapi.api.event.recipe.RecipeRegisterEvent;
 import net.modificationstation.stationapi.api.event.registry.BlockRegistryEvent;
 import net.modificationstation.stationapi.api.mod.entrypoint.Entrypoint;
+import net.modificationstation.stationapi.api.mod.entrypoint.EntrypointManager;
+import net.modificationstation.stationapi.api.mod.entrypoint.EventBusPolicy;
 import net.modificationstation.stationapi.api.recipe.CraftingRegistry;
 import net.modificationstation.stationapi.api.template.block.TemplateBlock;
 import net.modificationstation.stationapi.api.util.Namespace;
+import net.modificationstation.stationapi.api.util.Null;
 import net.zekromaster.minecraft.splitwoods.templates.SlabBlockTemplate;
 import net.zekromaster.minecraft.splitwoods.templates.StairsBlockTemplate;
 
+import java.lang.invoke.MethodHandles;
+
 import static net.minecraft.block.Block.WOOD_SOUND_GROUP;
 
+@Entrypoint(eventBus = @EventBusPolicy(registerInstance = false))
 public class SplitWoods {
+    static {
+        EntrypointManager.registerLookup(MethodHandles.lookup());
+    }
 
     @Entrypoint.Namespace
-    private static Namespace namespace;
+    private static Namespace namespace = Null.get();
 
     public static Block BIRCH_PLANKS;
     public static Block SPRUCE_PLANKS;
@@ -74,6 +83,7 @@ public class SplitWoods {
             CraftingRegistry.addShapelessRecipe(new ItemStack(BIRCH_PLANKS, 4), new ItemStack(Block.LOG, 1, 2));
             CraftingRegistry.addShapelessRecipe(new ItemStack(SPRUCE_PLANKS, 4), new ItemStack(Block.LOG, 1, 1));
         }
+
         if (event.recipeId.equals(RecipeRegisterEvent.Vanilla.CRAFTING_SHAPED.type())) {
             CraftingRegistry.addShapedRecipe(new ItemStack(Block.SLAB, 6, 2), "xxx", 'x', Block.PLANKS);
             CraftingRegistry.addShapedRecipe(new ItemStack(BIRCH_SLAB, 6), "xxx", 'x', BIRCH_PLANKS);
@@ -82,9 +92,7 @@ public class SplitWoods {
             CraftingRegistry.addShapedRecipe(new ItemStack(Block.WOODEN_STAIRS, 4), "x  ", "xx ", "xxx", 'x', Block.PLANKS);
             CraftingRegistry.addShapedRecipe(new ItemStack(BIRCH_STAIRS, 4), "x  ", "xx ", "xxx", 'x', BIRCH_PLANKS);
             CraftingRegistry.addShapedRecipe(new ItemStack(SPRUCE_STAIRS, 4), "x  ", "xx ", "xxx", 'x', SPRUCE_PLANKS);
-
         }
-
 
     }
 
