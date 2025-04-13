@@ -27,8 +27,9 @@ public class SplitWoods {
     }
 
     @Entrypoint.Namespace
-    private static Namespace namespace = Null.get();
+    public static Namespace namespace = Null.get();
 
+    public static Block[] blocks;
     public static Block BIRCH_PLANKS;
     public static Block SPRUCE_PLANKS;
     public static Block BIRCH_SLAB;
@@ -40,39 +41,47 @@ public class SplitWoods {
     private static void blockListener(BlockRegistryEvent event) {
         Block.PLANKS.setTranslationKey(namespace.id("oak_planks"));
         BIRCH_PLANKS = new TemplateBlock(namespace.id("birch_planks"), Material.WOOD)
-            .setHardness(2.0F)
-            .setResistance(5.0F)
-            .setSoundGroup(WOOD_SOUND_GROUP)
-            .setTranslationKey(namespace.id("birch_planks"));
+                .setHardness(2.0F)
+                .setResistance(5.0F)
+                .setSoundGroup(WOOD_SOUND_GROUP)
+                .setTranslationKey(namespace.id("birch_planks"));
         SPRUCE_PLANKS = new TemplateBlock(namespace.id("spruce_planks"), Material.WOOD)
-            .setHardness(2.0F)
-            .setResistance(5.0F)
-            .setSoundGroup(WOOD_SOUND_GROUP)
-            .setTranslationKey(namespace.id("spruce_planks"));
+                .setHardness(2.0F)
+                .setResistance(5.0F)
+                .setSoundGroup(WOOD_SOUND_GROUP)
+                .setTranslationKey(namespace.id("spruce_planks"));
 
         BIRCH_SLAB = new SlabBlockTemplate(namespace.id("birch_slab"), BIRCH_PLANKS)
-            .setHardness(2.0F)
-            .setResistance(5.0F)
-            .setSoundGroup(WOOD_SOUND_GROUP)
-            .setTranslationKey(namespace.id("birch_slab"));
+                .setHardness(2.0F)
+                .setResistance(5.0F)
+                .setSoundGroup(WOOD_SOUND_GROUP)
+                .setTranslationKey(namespace.id("birch_slab"));
         SPRUCE_SLAB = new SlabBlockTemplate(namespace.id("spruce_slab"), SPRUCE_PLANKS)
-            .setHardness(2.0F)
-            .setResistance(5.0F)
-            .setSoundGroup(WOOD_SOUND_GROUP)
-            .setTranslationKey(namespace.id("spruce_slab"));
+                .setHardness(2.0F)
+                .setResistance(5.0F)
+                .setSoundGroup(WOOD_SOUND_GROUP)
+                .setTranslationKey(namespace.id("spruce_slab"));
 
         Block.WOODEN_STAIRS.setTranslationKey(namespace.id("oak_stairs"));
         BIRCH_STAIRS = new StairsBlockTemplate(namespace.id("birch_stairs"), BIRCH_PLANKS)
-            .setHardness(2.0F)
-            .setResistance(5.0F)
-            .setSoundGroup(WOOD_SOUND_GROUP)
-            .setTranslationKey(namespace.id("birch_slab"));
+                .setHardness(2.0F)
+                .setResistance(5.0F)
+                .setSoundGroup(WOOD_SOUND_GROUP)
+                .setTranslationKey(namespace.id("birch_slab"));
         SPRUCE_STAIRS = new StairsBlockTemplate(namespace.id("spruce_stairs"), SPRUCE_PLANKS)
-            .setHardness(2.0F)
-            .setResistance(5.0F)
-            .setSoundGroup(WOOD_SOUND_GROUP)
-            .setTranslationKey(namespace.id("spruce_slab"));
+                .setHardness(2.0F)
+                .setResistance(5.0F)
+                .setSoundGroup(WOOD_SOUND_GROUP)
+                .setTranslationKey(namespace.id("spruce_slab"));
 
+        blocks = new Block[]
+        { BIRCH_PLANKS
+        , SPRUCE_PLANKS
+        , BIRCH_SLAB
+        , SPRUCE_SLAB
+        , BIRCH_STAIRS
+        , SPRUCE_STAIRS
+        };
     }
 
     @EventListener

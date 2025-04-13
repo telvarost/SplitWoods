@@ -13,3 +13,5 @@ tile.@.spruce_slab.name = Spruce Wood Slab
 tile.@.oak_stairs.name = Oak Wood Stairs
 tile.@.birch_stairs.name = Birch Wood Stairs
 tile.@.spruce_stairs.name = Spruce Wood Stairs
+
+tab.@.birch_planks.name=Split Woods

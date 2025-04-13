@@ -19,7 +19,10 @@
       "net.zekromaster.minecraft.splitwoods.SplitWoods"
     ],
     "stationapi:event_bus_client": [],
-    "stationapi:event_bus_server": []
+    "stationapi:event_bus_server": [],
+    "bhcreative:event_bus": [
+      "net.zekromaster.minecraft.splitwoods.CreativeListener"
+    ]
   },
   "mixins": [
     "splitwoods.mixins.json"
